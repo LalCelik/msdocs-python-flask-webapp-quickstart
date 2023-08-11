@@ -63,7 +63,6 @@ def save():
         engineer_id_new = request.form.get('engineerNewID') # login.html kısmından engineerID çekildi (kullanıcıdan)
         engineer_name_new = request.form.get('engineerNameNew') # login.html kısmından engineerID çekildi (kullanıcıdan)
         cur.execute("INSERT INTO public.engineer(engineer_id, engineer_name) VALUES (DEFAULT, %s)", (engineer_name_new,))
-        #inserts engineer with given values taken from params engineer_name_new ...
         conn.commit()
         flash('Basariyla eklendi')
     return redirect(url_for('index'))
@@ -76,7 +75,7 @@ def engineers():
     cur = conn.cursor() # query atmaya hazırlan
     cur.execute('SELECT * FROM engineer') # tüm MIP'leri almak için query yaz
     engineers_li = cur.fetchall() # databasein döndüğü tüm sonuçları al ve mips isimli variableın içine kaydet
-    conn_pool.putconn(conn) # database bağlantısını kes
+    conn_pool.putconn(conn)
     return render_template('dashboard.html', list_engineer=engineers_li)
 
 
